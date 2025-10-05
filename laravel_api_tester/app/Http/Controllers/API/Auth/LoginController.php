@@ -5,9 +5,11 @@ namespace App\Http\Controllers\API\Auth;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\LoginRequest;
 use App\Models\User;
-use Dotenv\Exception\ValidationException;
-use Illuminate\Auth\Access\Response;
+
+use Illuminate\Http\Response;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Validation\ValidationException;
 
 class LoginController extends Controller
 {
@@ -18,7 +20,8 @@ class LoginController extends Controller
     {
         $user = User::where('email',$request->email)->first();
 
-        if(!user || !Hash::check($request->password, $user->password)){
+
+        if(!$user || !Hash::check($request->password, $user->password)){
 
             throw ValidationException::withMessages([
                 'email'=>'The Credential you provided are incorrect.'
@@ -32,4 +35,7 @@ class LoginController extends Controller
             'user'=>$user
         ],Response::HTTP_OK);
     }
+
+
+
 }

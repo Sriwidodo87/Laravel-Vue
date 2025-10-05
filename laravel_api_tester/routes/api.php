@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\API\Auth\LoginController;
+use App\Http\Controllers\Api\Auth\LogoutController;
+use App\Http\Controllers\Api\Auth\RegisterController;
 use App\Http\Controllers\API\V1\CompleteTaskController;
 use App\Http\Controllers\API\V1\TaskController;
 use Illuminate\Http\Request;
@@ -16,7 +18,9 @@ Route::prefix('v1')->group(function(){
     Route::patch('/tasks/{task}/complete',CompleteTaskController::class);
 });
 
-Route::prefix('auth')->group(function(){
+Route::prefix('Auth')->group(function(){
     Route::post('/login',LoginController::class);
+    Route::post('/register',RegisterController::class);
+    Route::post('/logout',LogoutController::class)->middleware('auth:sanctum');
 });
 

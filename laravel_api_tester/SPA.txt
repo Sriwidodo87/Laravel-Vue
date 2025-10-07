@@ -1,0 +1,22 @@
+###SPA###
+
+1. php artisan install:api
+2.cek sanctum config file
+	SANCTUM_STATEFUL_DOMAINS
+3. CEK .ENV FILE
+	tambahkan file 
+	SANCTUM_STATEFUL_DOMAINS = localhost:5173,127.0.0.1:5173
+4.cek app pada boostrap
+	tambahkan file  : 
+	->withMiddleware(function (Middleware $middleware): void {
+        $middleware->statefulApi();//tambahkan
+    })
+5. jalanankan command untuk membuat publish cors
+	php artisan config:publish cors
+	it file :'supports_credentials' => true,
+6. kembalai ke .env file
+	edit SESSION_DOMAIN=localhost
+	
+##LOGin#
+
+1. php artisan make:controller  Auth/LoginController -i 
